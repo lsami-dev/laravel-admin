@@ -97,9 +97,9 @@
                 <HasError :form="form" field="password" />
             </div>
 
-            <b-button class="btn btn-success float-right">
+            <button type="submit" class="btn btn-success float-right">
                 Add New <i class="fa fa-user-plus"></i>
-            </b-button>
+            </button>
 
             </form>
 
