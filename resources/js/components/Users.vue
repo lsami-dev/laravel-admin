@@ -55,6 +55,9 @@
         <!-- User creation Modal  -->
         <b-modal id="addNewUser" title="Add New User" hide-footer="true">
 
+            
+            <form @submit.prevent="createUser">
+
             <AlertError :form="form" />
             <!-- <AlertErrors :form="form" /> -->
             <!-- <AlertSuccess :form="form" message="Your changes have beend saved!" /> -->
@@ -98,6 +101,8 @@
                 Add New <i class="fa fa-user-plus"></i>
             </b-button>
 
+            </form>
+
 
         </b-modal>
 
@@ -115,6 +120,11 @@
                     role: '',
                     avatar: ''
                 })
+            }
+        },
+        methods: {
+            createUser() {
+                const response = this.form.post('/api/user');
             }
         },
         mounted() {
