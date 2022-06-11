@@ -8,6 +8,19 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+
+
+import Vue from 'vue';
+
+
+
+// Vue Bootstrap
+
+import { BootstrapVue } from 'bootstrap-vue';
+Vue.use(BootstrapVue);
+
+// Vue Router
+
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
@@ -22,6 +35,15 @@ const router = new VueRouter({
     routes,
     mode: 'history'
 });
+
+
+// vform
+import { Form } from 'vform';
+import { HasError, AlertError } from 'vform/src/components/bootstrap4';
+
+window.From = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 
 /**

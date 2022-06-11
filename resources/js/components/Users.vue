@@ -6,7 +6,10 @@
                     <div class="card-header">
                         <h3 class="card-title">Users List</h3>
                         <div class="card-tools">
-                            <button class="btn btn-success">Add New <i class="fa fa-user-plus"></i></button>
+                            <b-button class="btn btn-success" v-b-modal="'addNewUser'">
+                                Add New <i class="fa fa-user-plus"></i>
+                            </b-button>
+
                         </div>
                     </div>
 
@@ -36,7 +39,7 @@
                                         /
                                         <a href="">
                                             <i class="fa fa-trash text-red">
-                                                
+
                                             </i>
                                         </a>
                                     </td>
@@ -49,11 +52,71 @@
 
             </div>
         </div>
+        <!-- User creation Modal  -->
+        <b-modal id="addNewUser" title="Add New User" hide-footer="true">
+
+            <AlertError :form="form" />
+            <!-- <AlertErrors :form="form" /> -->
+            <!-- <AlertSuccess :form="form" message="Your changes have beend saved!" /> -->
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input id="name" v-model="form.name" type="text" name="name" class="form-control">
+                <HasError :form="form" field="name" />
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail Address</label>
+                <input id="email" v-model="form.email" type="text" name="email" class="form-control">
+                <HasError :form="form" field="email" />
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" v-model="form.password" type="password" name="password" class="form-control">
+                <HasError :form="form" field="password" />
+            </div>
+
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select id="role" v-model="form.role" type="role" name="role" class="form-control">
+                    <option value="">Select</option>
+                    <option value="basic">Basic</option>
+                    <option value="manager">Manager</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <HasError :form="form" field="role" />
+            </div>
+
+            <div class="mb-3">
+                <label for="avatar" class="form-label">Profile Picture</label>
+                <input id="avatar" type="file" name="avatar" class="form-control">
+                <HasError :form="form" field="password" />
+            </div>
+
+            <b-button class="btn btn-success float-right">
+                Add New <i class="fa fa-user-plus"></i>
+            </b-button>
+
+
+        </b-modal>
+
     </div>
 </template>
 
 <script>
     export default {
+        data() {
+            return {
+                form: new From({
+                    name: '',
+                    email: '',
+                    password: '',
+                    role: '',
+                    avatar: ''
+                })
+            }
+        },
         mounted() {
             console.log('Component mounted.')
         }
