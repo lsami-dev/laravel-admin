@@ -58,9 +58,6 @@
             
             <form @submit.prevent="createUser">
 
-            <AlertError :form="form" />
-            <!-- <AlertErrors :form="form" /> -->
-            <!-- <AlertSuccess :form="form" message="Your changes have beend saved!" /> -->
 
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -94,7 +91,7 @@
             <div class="mb-3">
                 <label for="avatar" class="form-label">Profile Picture</label>
                 <input id="avatar" type="file" name="avatar" class="form-control">
-                <HasError :form="form" field="password" />
+                <HasError :form="form" field="avatar" />
             </div>
 
             <button type="submit" class="btn btn-success float-right">
