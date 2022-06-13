@@ -21,15 +21,17 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                                    <th>Registred At</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>183</td>
-                                    <td>John Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="tag tag-success">Approved</span></td>
+                                <tr v-for="user in users" :key="user.id">
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.role }}</td>
+                                    <td>{{ user.created_at }}</td>
                                     <td>
                                         <a href="">
                                             <i class="fa fa-pen">
@@ -53,7 +55,7 @@
             </div>
         </div>
         <!-- User creation Modal  -->
-        <b-modal id="addNewUser" title="Add New User" hide-footer="true">
+        <b-modal id="addNewUser" title="Add New User" :hide-footer="true">
 
             
             <form @submit.prevent="createUser">
@@ -110,6 +112,7 @@
     export default {
         data() {
             return {
+                users: {},
                 form: new From({
                     name: '',
                     email: '',
@@ -120,12 +123,15 @@
             }
         },
         methods: {
+            getAllUsers() {
+                axios.get('api/user').then(({data}) => ( this.users = data.data));
+            },
             createUser() {
-                const response = this.form.post('/api/user');
+                this.form.post('/api/user');
             }
         },
-        mounted() {
-            console.log('Component mounted.')
+        created() {
+            this.getAllUsers();
         }
     }
 </script>
