@@ -11,7 +11,7 @@ window.Vue = require('vue').default;
 
 
 import Vue from 'vue';
-
+import moment from 'moment';
 
 
 // Vue Bootstrap
@@ -44,6 +44,19 @@ import { HasError, AlertError } from 'vform/src/components/bootstrap4';
 window.From = Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
+
+// Vue filters
+Vue.filter('capitalize', function (value) {
+    if (!value) return ''
+    value = value.toString()
+    return value.charAt(0).toUpperCase() + value.slice(1)
+  });
+
+Vue.filter('formatDate', function(date) {
+    
+    return moment(date).format("MMM Do YY");
+});
+
 
 
 /**
