@@ -29,6 +29,7 @@
         "bootstrap-vue": "^2.22.0",
         "moment": "^2.29.3",
         "vform": "^2.1.2",
+        "vue-progressbar": "^0.7.5",
         "vue-router": "^3.5.4"
     }
 }
