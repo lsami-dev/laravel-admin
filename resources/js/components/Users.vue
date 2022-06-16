@@ -6,7 +6,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Users List</h3>
                         <div class="card-tools">
-                            <b-button class="btn btn-success" v-b-modal="'addNewUser'">
+                            <b-button class="btn btn-success" v-b-modal.modal-no-backdrop="'addNewUser'">
                                 Add New <i class="fa fa-user-plus"></i>
                             </b-button>
 
@@ -55,7 +55,7 @@
             </div>
         </div>
         <!-- User creation Modal  -->
-        <b-modal id="addNewUser" title="Add New User" :hide-footer="true">
+        <b-modal hide-backdrop id="addNewUser" title="Add New User" :hide-footer="true" >
 
             
             <form @submit.prevent="createUser">
@@ -129,6 +129,11 @@
             createUser() {
                 this.$Progress.start();
                 this.form.post('/api/user');
+                this.$root.$emit('bv::hide::modal','addNewUser');
+                toast.fire({
+                    icon: 'success',
+                    title: 'User created successfully'
+                });
                 this.$Progress.finish();
             }
         },

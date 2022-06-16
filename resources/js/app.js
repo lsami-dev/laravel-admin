@@ -70,11 +70,25 @@ const options = {
       termination: 300
     },
     autoRevert: true,
-    location: 'left',
+    location: 'top',
     inverse: false
   }
 
-  Vue.use(VueProgressBar, options);
+Vue.use(VueProgressBar, options);
+
+// Sweet Alert 2
+
+import swal from 'sweetalert2';
+window.swal = swal;
+
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+  });
+
+window.toast = toast;
 
 
 
