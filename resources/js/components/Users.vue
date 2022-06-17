@@ -128,13 +128,21 @@
             },
             createUser() {
                 this.$Progress.start();
-                this.form.post('/api/user');
-                this.$root.$emit('bv::hide::modal','addNewUser');
-                toast.fire({
-                    icon: 'success',
-                    title: 'User created successfully'
+                this.form.post('/api/user')
+                .then( () => {
+                        this.$root.$emit('bv::hide::modal','addNewUser');
+                        toast.fire({
+                            icon: 'success',
+                            title: 'User created successfully'
+                        });
+                        this.$Progress.finish();
+                    }                    
+                )
+                .catch(() => {
+                    this.$Progress.fail();
                 });
-                this.$Progress.finish();
+                this.getAllUsers();
+                
             }
         },
         created() {
