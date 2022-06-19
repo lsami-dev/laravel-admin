@@ -26,14 +26,14 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 let routes = [
-    { path: '/dashboard', component: require('./components/Dashboard.vue').default },
-    { path: '/users', component: require('./components/Users.vue').default },
-    { path: '/profile', component: require('./components/Profile.vue').default }
+  { path: '/dashboard', component: require('./components/Dashboard.vue').default },
+  { path: '/users', component: require('./components/Users.vue').default },
+  { path: '/profile', component: require('./components/Profile.vue').default }
 ];
 
 const router = new VueRouter({
-    routes,
-    mode: 'history'
+  routes,
+  mode: 'history'
 });
 
 
@@ -47,32 +47,32 @@ Vue.component(AlertError.name, AlertError)
 
 // Vue filters
 Vue.filter('capitalize', function (value) {
-    if (!value) return ''
-    value = value.toString()
-    return value.charAt(0).toUpperCase() + value.slice(1)
-  });
+  if (!value) return ''
+  value = value.toString()
+  return value.charAt(0).toUpperCase() + value.slice(1)
+});
 
-Vue.filter('formatDate', function(date) {
-    
-    return moment(date).format("MMM Do YY");
+Vue.filter('formatDate', function (date) {
+
+  return moment(date).format("MMM Do YY");
 });
 
 // Progress bar
 import VueProgressBar from 'vue-progressbar';
 
 const options = {
-    color: '#bffaf3',
-    failedColor: '#874b4b',
-    thickness: '5px',
-    transition: {
-      speed: '0.2s',
-      opacity: '0.6s',
-      termination: 300
-    },
-    autoRevert: true,
-    location: 'top',
-    inverse: false
-  }
+  color: '#bffaf3',
+  failedColor: '#874b4b',
+  thickness: '5px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0.6s',
+    termination: 300
+  },
+  autoRevert: true,
+  location: 'top',
+  inverse: false
+}
 
 Vue.use(VueProgressBar, options);
 
@@ -82,13 +82,17 @@ import swal from 'sweetalert2';
 window.swal = swal;
 
 const toast = swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-  });
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+});
 
 window.toast = toast;
+
+// Vue Event Handler
+let EventHandler = new Vue();
+window.EventHandler = EventHandler;
 
 
 
@@ -112,6 +116,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app',
-    router
+  el: '#app',
+  router
 });
