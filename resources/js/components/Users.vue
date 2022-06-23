@@ -55,10 +55,10 @@
             </div>
         </div>
         <!-- User creation Modal  -->
-        <b-modal hide-backdrop id="userModal" title="Add New User" :hide-footer="true">
+        <b-modal hide-backdrop id="userModal" :title="editMode ? 'Edit User' : 'Add New User'" :hide-footer="true">
 
 
-            <form @submit.prevent="createUser">
+            <form @submit.prevent="editMode ? updateUser() : createUser()">
 
 
                 <div class="mb-3">
@@ -97,7 +97,8 @@
                 </div>
 
                 <button type="submit" class="btn btn-success float-right">
-                    Add New <i class="fa fa-user-plus"></i>
+                    {{ editMode ? 'Save changes' : 'Add new User' }}
+                    <i :class="[editMode ? 'fa fa-user-pen' : 'fa fa-user-plus']"></i>
                 </button>
 
             </form>
@@ -112,6 +113,7 @@
 export default {
     data() {
         return {
+            editMode: true,
             users: {},
             form: new From({
                 name: '',
@@ -124,11 +126,15 @@ export default {
     },
     methods: {
         createUserModal() {
+            this.editMode = false;
+            this.form.clear();
             this.form.reset();
             this.$root.$emit('bv::show::modal', 'userModal');
 
         },
         editUserModal(user) {
+            this.editMode = true;
+            this.form.clear();
             this.form.reset();
             this.$root.$emit('bv::show::modal', 'userModal');
             this.form.fill(user);
@@ -153,6 +159,9 @@ export default {
                     this.$Progress.fail();
                 });
 
+        },
+        updateUser() {
+            console.log("Updating User ...");
         },
         deleteUser(userId) {
             swal.fire({
