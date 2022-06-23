@@ -6,7 +6,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Users List</h3>
                         <div class="card-tools">
-                            <b-button class="btn btn-success" v-b-modal.modal-no-backdrop="'addNewUser'">
+                            <b-button class="btn btn-success" @click="createUserModal()">
                                 Add New <i class="fa fa-user-plus"></i>
                             </b-button>
 
@@ -33,7 +33,7 @@
                                     <td>{{ user.role | capitalize }}</td>
                                     <td>{{ user.created_at | formatDate }}</td>
                                     <td>
-                                        <a href="">
+                                        <a href="#" @click="editUserModal(user)">
                                             <i class="fa fa-pen">
 
                                             </i>
@@ -55,7 +55,7 @@
             </div>
         </div>
         <!-- User creation Modal  -->
-        <b-modal hide-backdrop id="addNewUser" title="Add New User" :hide-footer="true">
+        <b-modal hide-backdrop id="userModal" title="Add New User" :hide-footer="true">
 
 
             <form @submit.prevent="createUser">
@@ -123,6 +123,16 @@ export default {
         }
     },
     methods: {
+        createUserModal() {
+            this.form.reset();
+            this.$root.$emit('bv::show::modal', 'userModal');
+
+        },
+        editUserModal(user) {
+            this.form.reset();
+            this.$root.$emit('bv::show::modal', 'userModal');
+            this.form.fill(user);
+        },
         getAllUsers() {
             axios.get('api/user').then(({ data }) => (this.users = data.data));
         },
@@ -130,7 +140,7 @@ export default {
             this.$Progress.start();
             this.form.post('/api/user')
                 .then(() => {
-                    this.$root.$emit('bv::hide::modal', 'addNewUser');
+                    this.$root.$emit('bv::hide::modal', 'userModal');
                     toast.fire({
                         icon: 'success',
                         title: 'User created successfully'
