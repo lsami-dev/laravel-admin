@@ -116,6 +116,7 @@ export default {
             editMode: true,
             users: {},
             form: new From({
+                id: '',
                 name: '',
                 email: '',
                 password: '',
@@ -161,7 +162,21 @@ export default {
 
         },
         updateUser() {
-            console.log("Updating User ...");
+            this.$Progress.start();
+            this.form.put('api/user/' + this.form.id)
+                .then(() => {
+                    this.$root.$emit('bv::hide::modal', 'userModal');
+                    toast.fire({
+                        icon: 'success',
+                        title: 'User updated successfully'
+                    });
+                    this.$Progress.finish();
+                    EventHandler.$emit('tableUpdate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+
+                });
         },
         deleteUser(userId) {
             swal.fire({
